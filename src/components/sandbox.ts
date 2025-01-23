@@ -11,12 +11,15 @@ export default class SandBox {
             }
 
             p.draw = () => {
-                this.step(p);
-            };
-        });
-    }
 
-    step(p: p5) {
-        p.circle(50, 50, 10);
+            };
+
+            onmousemove = (ev: MouseEvent) => {
+                if (ev.buttons != 1) {
+                    return;
+                }
+
+            }
+        });
     }
 }
