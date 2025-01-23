@@ -1,6 +1,9 @@
 import p5 from "p5";
+import grid from "./canvas";
+import Particle from "./particles/particle";
 
 export default class SandBox {
+    grid: grid<Particle> = new grid(1000,1000);
     constructor(private readonly canvas: string) {}
 
     start() {
@@ -18,7 +21,6 @@ export default class SandBox {
                 if (ev.buttons != 1) {
                     return;
                 }
-
             }
         });
     }

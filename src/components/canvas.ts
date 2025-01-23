@@ -17,7 +17,7 @@ const offsets = [
     { x: 1, y: 1}
 ]
 
-class canvas<T> {
+class grid<T> {
     cells: T[];
     width: number;
     dimX: number;
@@ -73,4 +73,4 @@ class canvas<T> {
     }
 }
 
-export default canvas;
+export default grid;
