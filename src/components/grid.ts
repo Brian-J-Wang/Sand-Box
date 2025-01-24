@@ -71,6 +71,10 @@ class grid<T> {
 
         return neighbors;
     }
+
+    updateCell(x: number, y: number, data: T) {
+        
+    }
 }
 
 export default grid;

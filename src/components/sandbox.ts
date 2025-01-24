@@ -1,5 +1,5 @@
 import p5 from "p5";
-import grid from "./canvas";
+import grid from "./grid";
 import Particle from "./particles/particle";
 
 export default class SandBox {
@@ -21,6 +21,8 @@ export default class SandBox {
                 if (ev.buttons != 1) {
                     return;
                 }
+
+                
             }
         });
     }
