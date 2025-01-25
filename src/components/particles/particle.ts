@@ -1,5 +1,12 @@
-export default class Particle {
-    type: "solid" | "liquid" | "gas" = "solid";
+export type ParticleType = "solid" | "liquid" | "gas" | "invalid";
+
+export type Common = {
+    type: ParticleType,
+    color: number[]
+}
+
+export default abstract class Particle {
+    abstract common: Common;
     constructor() {
 
     }
@@ -10,6 +17,15 @@ export default class Particle {
     }
 }
 
+const AirShared: Common = {
+    type: "gas",
+    color: [0, 0, 0, 0]
+}
+
 export class Air extends Particle {
-    type: "solid" | "liquid" | "gas" = "gas";
+    common: Common = AirShared;
+
+    constructor() {
+        super();
+    }
 }
