@@ -1,4 +1,7 @@
-.canvas {
-    height: 600px;
-    width: 600px;
+.canvas-container {
+    margin: auto;
+    border: 3px double #292929;
+    flex-shrink: 1;
+    height: 500px;
+    width: 800px;
 }

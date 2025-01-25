@@ -3,7 +3,7 @@ import grid, { offsets, Position } from "./grid";
 import Particle, { Air } from "./particles/particle";
 import Dust from "./particles/dust";
 
-const width = 500;
+const width = 800;
 const height = 500;
 
 export default class SandBox {
@@ -23,10 +23,11 @@ export default class SandBox {
 
             p.draw = () => {
                 //paint the cell
+                paint();
                 
                 updatePositions();
                 
-                paint();
+                
             };
 
             p.mouseDragged = (evt) => {
@@ -60,18 +61,42 @@ export default class SandBox {
                             continue;
                         }
 
+                        //element is on top, slide down
+                        if (
+                            !this.grid.isEmpty(coordinates, {x: 0, y: 1})
+                        ) {
+                            const validOffsets = [];
+
+                            if (this.grid.isEmpty(coordinates, {x: 1, y: 1})) {
+                                validOffsets.push({x: 1, y: 1});
+                            }
+
+                            if (this.grid.isEmpty(coordinates, {x: -1, y: 1})) {
+                                validOffsets.push({x: -1, y: 1});
+                            }
+
+                            if (validOffsets.length != 0) {
+                                const value = Math.floor(Math.random() * validOffsets.length);
+                                this.grid.moveCellRelative(i, validOffsets[value].x, validOffsets[value].y);
+                                continue;
+                            }                            
+                        } 
+                        
                         if (this.grid.isEmpty(coordinates, positionOffset)) {
                             this.grid.moveCellRelative(i, positionOffset.x, positionOffset.y);
+                            continue;
                         } else {
                             this.grid.keepCell(i);
                             continue;
                         }
                     }
                 }
+
+                this.grid.updateCells();
             }
 
             const paint = () => {
-                this.grid.updateCells();
+                
 
                 for (let i = 0; i < this.grid.cells.length; i++) {
                     const particle = this.grid.getCell(i);
@@ -85,5 +110,9 @@ export default class SandBox {
 
             }
         });
+    }
+
+    setActiveParticle(particle: string) {
+        
     }
 }

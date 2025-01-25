@@ -1,3 +1,4 @@
+export type ValidParticles = "dust" | "water"
 export type ParticleType = "solid" | "liquid" | "gas" | "invalid";
 
 export type Common = {

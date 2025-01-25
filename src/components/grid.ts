@@ -115,8 +115,6 @@ class grid<T> {
     }
 
     updateCells() {
-        this.cells = new Array<T>(this.dimX * this.dimY);
-
         for (let i = 0; i < this.cells.length; i++) {
             this.cells[i] = this.bufferCells[i];
         }
@@ -137,8 +135,22 @@ class grid<T> {
         return (summation.x < 0 || summation.x >= this.dimX|| summation.y < 0 || summation.y >= this.dimY);
     }
 
+    isBufferEmpty(coordinate: Position, offset: Position = Position.origin): boolean {
+        const summation = Position.sum(coordinate, offset);
+
+        if (this.isOutOfBounds(summation)) {
+            return false;
+        }
+
+        return this.bufferCells[summation.x + summation.y * this.width] == undefined;
+    }
+
     isEmpty(coordinate: Position, offset: Position = Position.origin): boolean {
         const summation = Position.sum(coordinate, offset);
+
+        if (this.isOutOfBounds(summation)) {
+            return false;
+        }
 
         return this.cells[summation.x + summation.y * this.width] == undefined;
     }
