@@ -1,0 +1,26 @@
+.tabs {
+    width: 800px;
+    height: 120px;
+    margin: 15px auto 0px auto;
+}
+
+.tabs__button-bar {
+    height: 30px;
+    display: flex;
+    border-left: 1px solid #292929
+}
+
+.tabs__button {
+    margin: none;
+    height: 30px;
+    width: 90px;
+    border-radius: none;
+    border: 1px solid #292929;
+    border-left: none;
+    border-bottom: none;
+}
+
+.tabs__selection {
+    border: 1px solid #292929;
+    height: 90px;
+}
