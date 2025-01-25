@@ -1,3 +1,19 @@
+import OutOfBoundsError from "../Utils/errors/OutOfBoundsError";
+type Position = {
+    x: number,
+    y: number
+}
+
+export const Position = {
+    origin: {x: 0, y: 0},
+    sum: function (a: Position, b: Position): Position {
+        return {
+            x: a.x + b.x,
+            y: a.y + b.y
+        }
+    }
+}
+
 interface cellData {
     position: {
         x: number,
@@ -6,7 +22,7 @@ interface cellData {
     neighbors: any[]
 }
 
-const offsets = [
+export const offsets = [
     { x: -1, y: -1},
     { x: 0, y: -1},
     { x: 1, y: -1},
@@ -85,8 +101,16 @@ class grid<T> {
         this.bufferCells[x + y * this.width] = data;
     }
 
+    keepCell(cell: number) {
+        this.bufferCells[cell] = this.cells[cell];
+    }
+
     moveCellRelative(cell: number, xOffset: number, yOffset: number) {
         const particle = this.cells[cell];
+        const newPosition = (cell + xOffset) - (yOffset * this.width);
+        if (newPosition > this.cells.length) {
+            throw new OutOfBoundsError();
+        }
         this.bufferCells[(cell + xOffset) + (yOffset * this.width)] = particle;
     }
 
@@ -95,8 +119,9 @@ class grid<T> {
 
         for (let i = 0; i < this.cells.length; i++) {
             this.cells[i] = this.bufferCells[i];
-            this.bufferCells[i];
         }
+
+        this.bufferCells = new Array<T>(this.dimX * this.dimY);
     }
 
     toXY(i: number) {
@@ -105,6 +130,19 @@ class grid<T> {
             y: Math.floor(i / this.width)
         }
     }
+
+    isOutOfBounds(coordinate: Position, offset: Position = Position.origin): boolean {
+        const summation = Position.sum(coordinate, offset);
+
+        return (summation.x < 0 || summation.x >= this.dimX|| summation.y < 0 || summation.y >= this.dimY);
+    }
+
+    isEmpty(coordinate: Position, offset: Position = Position.origin): boolean {
+        const summation = Position.sum(coordinate, offset);
+
+        return this.cells[summation.x + summation.y * this.width] == undefined;
+    }
+
 }
 
 export default grid;
