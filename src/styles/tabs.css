@@ -5,9 +5,8 @@
 }
 
 .tabs__button-bar {
-    height: 30px;
     display: flex;
-    border-left: 1px solid #292929
+    align-items: end;
 }
 
 .tabs__button {
@@ -16,11 +15,17 @@
     width: 90px;
     border-radius: none;
     border: 1px solid #292929;
-    border-left: none;
+    border-left: 0.5px solid #292929;
+    border-right: 0.5px solid #292929;;
     border-bottom: none;
+}
+
+.tabs__button_selected {
+    height: 40px;
+    background-color: white;
 }
 
 .tabs__selection {
     border: 1px solid #292929;
-    height: 90px;
+    height: 150px;
 }
